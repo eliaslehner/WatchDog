@@ -39,10 +39,11 @@ SCANNABLE_NAMES = {
 class BaseAgent(ABC):
     name: str = "base"
 
-    def __init__(self, path: str, framework: str | None = None, target: str | None = None):
+    def __init__(self, path: str, framework: str | None = None, target: str | None = None, exclude: list[str] | None = None):
         self.path = Path(path)
         self.framework = framework
         self.target = target
+        self.exclude = set(exclude) if exclude else set()
 
     @abstractmethod
     def scan(self) -> list[Finding]:
@@ -54,7 +55,7 @@ class BaseAgent(ABC):
         include_build: bool = False,
         extensions: set[str] | None = None,
     ) -> list[Path]:
-        ignore = IGNORE_DIRS | (extra_ignore or set())
+        ignore = IGNORE_DIRS | self.exclude | (extra_ignore or set())
         if not include_build:
             ignore = ignore | BUILD_DIRS
         exts = extensions if extensions is not None else TEXT_SUFFIXES

@@ -24,7 +24,8 @@ def cli():
 @click.option("--scanners", default=None, help="Comma-separated scanner names. e.g. secrets,client-exposure,artifacts")
 @click.option("--no-reasoning", is_flag=True, default=False, help="Skip Claude reasoning step")
 @click.option("--verbose", "-v", is_flag=True, default=False, help="Show detailed findings with context and reasoning")
-def scan(path, framework, target, output_format, scanners, no_reasoning, verbose):
+@click.option("--exclude", multiple=True, help="Directory names to exclude from scanning (repeatable)")
+def scan(path, framework, target, output_format, scanners, no_reasoning, verbose, exclude):
     """Scan a project directory for security issues."""
     scanner_list = None
     if scanners:
@@ -46,6 +47,7 @@ def scan(path, framework, target, output_format, scanners, no_reasoning, verbose
         target=target,
         scanners=scanner_list,
         reasoning=not no_reasoning,
+        exclude=list(exclude) if exclude else None,
     )
 
     if output_format == "console":

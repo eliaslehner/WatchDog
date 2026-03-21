@@ -62,6 +62,7 @@ def run_scan(
     target: str | None = None,
     scanners: list[str] | None = None,
     reasoning: bool = True,
+    exclude: list[str] | None = None,
 ) -> list[Finding]:
     framework = framework or detect_framework(path)
 
@@ -72,7 +73,7 @@ def run_scan(
 
     findings: list[Finding] = []
     for name, scanner_cls in active.items():
-        agent = scanner_cls(path, framework=framework, target=target)
+        agent = scanner_cls(path, framework=framework, target=target, exclude=exclude)
         findings.extend(agent.scan())
 
     # Deduplicate by (file, line, scanner)
