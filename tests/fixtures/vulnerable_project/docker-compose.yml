@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_PASSWORD=prodpass123abc
+      - NODE_ENV=production
+    privileged: true
+    network_mode: host
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: mysecretdbpass123

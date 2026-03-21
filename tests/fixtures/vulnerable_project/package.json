@@ -1,0 +1,13 @@
+{
+  "name": "vulnerable-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "next": "14.0.0",
+    "react": "18.2.0",
+    "event-stream": "4.0.0",
+    "express": "*"
+  },
+  "devDependencies": {
+    "colors": "1.4.1"
+  }
+}

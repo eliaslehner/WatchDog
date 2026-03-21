@@ -1,0 +1,67 @@
+stages:
+  - test
+  - scan
+
+# --- Run WatchDog's own tests ---
+test:
+  stage: test
+  image: python:3.11-slim
+  before_script:
+    - pip install -q -r requirements.txt
+  script:
+    - python -m pytest tests/ -v
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+# --- Scan the target project for security issues ---
+# For MR pipelines: posts findings as MR comment via gitlab output
+# For main branch: blocks pipeline on critical findings
+watchdog-scan:
+  stage: scan
+  image: python:3.11-slim
+  before_script:
+    - pip install -q -r requirements.txt
+  script:
+    - >
+      python watchdog.py scan ${SCAN_PATH:-.}
+      --output ${WATCHDOG_OUTPUT:-console}
+      --target ${DEPLOY_TARGET:-}
+      ${WATCHDOG_NO_REASONING:+--no-reasoning}
+  variables:
+    ANTHROPIC_API_KEY: $ANTHROPIC_API_KEY
+    SCAN_PATH: "."
+    WATCHDOG_OUTPUT: "console"
+  artifacts:
+    when: always
+    paths:
+      - watchdog-report.json
+    reports:
+      codequality: watchdog-report.json
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  allow_failure: false
+
+# --- Optional: generate Code Quality report artifact ---
+watchdog-codequality:
+  stage: scan
+  image: python:3.11-slim
+  before_script:
+    - pip install -q -r requirements.txt
+  script:
+    - >
+      python watchdog.py scan ${SCAN_PATH:-.}
+      --output codequality
+      --no-reasoning
+      > watchdog-report.json || true
+  variables:
+    SCAN_PATH: "."
+  artifacts:
+    when: always
+    paths:
+      - watchdog-report.json
+    reports:
+      codequality: watchdog-report.json
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
