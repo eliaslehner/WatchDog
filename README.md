@@ -230,8 +230,7 @@ watchdog-scan:
 
 - **Event:** GitLab AI Hackathon 2026
 - **Category:** Security & Compliance agents
-- **Repo:** *(add when GitLab access is granted)*
-- **Demo video:** *(add before submission)*
+- **Repo:** [gitlab-ai-hackathon/participants/35604497](https://gitlab.com/gitlab-ai-hackathon/participants/35604497)
 
 ### Requirements
 
