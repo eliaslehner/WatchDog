@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "agents": {
+    "agents/agent.yml": {
+      "catalog_id": "gid://gitlab/Ai::Catalog::Item/1005925",
+      "name": "WatchDog Security Scanner",
+      "created_at": "2026-03-21T13:44:55.208Z",
+      "item_consumers": {
+        "group": {
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5583603"
+        },
+        "project": {
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5583604"
+        }
+      },
+      "latest_sync": {
+        "git_tag": "v1.0.0",
+        "catalog_version": "1.0.0",
+        "synced_at": "2026-03-21T13:44:55.208Z",
+        "definition_hash": "17151df664cac68c"
+      }
+    }
+  },
+  "flows": {
+    "flows/flow.yml": {
+      "catalog_id": "gid://gitlab/Ai::Catalog::Item/1005926",
+      "name": "WatchDog Security Flow",
+      "created_at": "2026-03-21T13:44:56.104Z",
+      "item_consumers": {
+        "group": {
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5583605"
+        },
+        "project": {
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5583606"
+        }
+      },
+      "latest_sync": {
+        "git_tag": "v1.0.0",
+        "catalog_version": "1.0.0",
+        "synced_at": "2026-03-21T13:44:56.104Z",
+        "definition_hash": "8722471450ab4ae3"
+      }
+    }
+  }
+}

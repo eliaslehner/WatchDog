@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://admin:SuperSecret123!@db:5432/maindb
+      - SECRET_KEY=django-insecure-k8s!_p3rf3ct_s3cr3t_k3y_2026
+      - DEBUG=True
+    privileged: true
+    network_mode: host
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=SuperSecret123!
+    ports:
+      - "5432:5432"
