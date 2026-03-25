@@ -108,6 +108,25 @@ pytest tests/ -v
 
 ---
 
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/img/cli-results.png" alt="WatchDog CLI scan results" width="100%"/>
+      <br/>
+      <strong>CLI output:</strong> findings table grouped by severity, with scanner, file, line, and description. 27 findings detected across the sample project; pipeline blocked on 10 critical issues.
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/img/merge-request.png" alt="WatchDog GitLab MR comment" width="100%"/>
+      <br/>
+      <strong>GitLab MR comment:</strong> WatchDog posts a formatted security report directly on the merge request, blocking merge on critical findings and explaining the exploit path per issue.
+    </td>
+  </tr>
+</table>
+
+---
+
 ## Architecture
 
 ```

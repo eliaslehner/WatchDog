@@ -130,7 +130,7 @@ class ClientExposureAnalyzer(BaseAgent):
         )
 
     def _is_client_file(self, fpath: Path) -> bool:
-        rel = self.rel_path(fpath)
+        rel = self.rel_path(fpath).replace('\\', '/')
         for server_pat in NEXTJS_SERVER_PATTERNS:
             if server_pat in rel:
                 return False
